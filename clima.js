@@ -6,18 +6,18 @@ const error404 = document.querySelector('.not-found');
 
 search.addEventListener('click', () => {
 
-    const APIKey = '71a787d23f774ab56ff03fcbb3301a4a';
+    const APIKey = '2afc53a874658237e910cb988708efc2';
     const city = document.querySelector('.search-box input').value;
 
     if (city === '')
         return;
 
-    fetch(`https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid=${APIKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`)
         .then(response => response.json())
         .then(json => {
 
             if (json.cod === '404') {
-                container.style.height = '400px';
+                container.style.height = '500px';
                 weatherBox.style.display = 'none';
                 weatherDetails.style.display = 'none';
                 error404.style.display = 'block';
@@ -36,29 +36,32 @@ search.addEventListener('click', () => {
 
             switch (json.weather[0].main) {
                 case 'Clear':
-                    image.src = 'clear-sky.png';
+                    image.src = 'img/clear-sky.png';
+                    break;
+
+                case 'Hot':
+                    image.src = 'img/hot.png';
                     break;
 
                 case 'Rain':
-                    image.src = 'rain.png';
+                    image.src = 'img/rain.png';
                     break;
 
                 case 'Snow':
-                    image.src = 'temperature.png';
+                    image.src = 'img/temperature.png';
                     break;
 
                 case 'Clouds':
-                    image.src = 'cloudy.png';
+                    image.src = 'img/cloudy.png';
                     break;
 
                 case 'Haze':
-                    image.src = 'sun.png';
+                    image.src = 'img/haze.png';
                     break;
 
                 default:
                     image.src = '';
             }
-
             temperature.innerHTML = `${parseInt(json.main.temp)}<span>°C</span>`;
             description.innerHTML = `${json.weather[0].description}`;
             humidity.innerHTML = `${json.main.humidity}%`;
