@@ -7,13 +7,13 @@ const error404 = document.querySelector('.not-found');
 
 search.addEventListener('click', async () => {
   const APIKey = '2afc53a874658237e910cb988708efc2'; 
-  let city = document.querySelector('.search-box input').value; 
-
+  let city = document.querySelector('.search-box input').value;
+  
   if (city === '')
     return;
 
-  try {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}`);
+  try { // sustituimos ${city} y ${APIKey} y agregamos "&lang=sp" para poner en español la pagina
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${APIKey}&lang=sp`);
     const json = await response.json();
 
     if (json.cod === '404') {
